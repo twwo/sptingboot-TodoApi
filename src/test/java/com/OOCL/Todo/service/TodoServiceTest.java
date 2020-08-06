@@ -113,4 +113,15 @@ public class TodoServiceTest {
         GlobalException globalException = assertThrows(GlobalException.class, () -> todoService.findById(1));
         assertEquals(ExceptionConstant.NOT_SUCH_DATA.getMessage(), globalException.getMessage());
     }
+
+    @Test
+    void should_throw_global_exception_name_illegal_operation__when_update_given_not_same_id() {
+        //given
+        Integer id = 1;
+        Todo todo = testTodoList.get(1);
+
+        //when, then
+        GlobalException globalException = assertThrows(GlobalException.class, () -> todoService.update(id, todo));
+        assertEquals(ExceptionConstant.ILLEGAL_OPERATION.getMessage(), globalException.getMessage());
+    }
 }
