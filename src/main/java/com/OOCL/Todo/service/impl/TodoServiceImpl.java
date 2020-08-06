@@ -40,6 +40,9 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Todo update(Integer id, Todo updatedTodo) throws GlobalException {
+        if (!id.equals(updatedTodo.getId())) {
+            throw new GlobalException(ExceptionConstant.ILLEGAL_OPERATION.getMessage());
+        }
         Todo todo = findById(id);
         if (todo != null) {
             BeanUtils.copyProperties(updatedTodo, todo);
