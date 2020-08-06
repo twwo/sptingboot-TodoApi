@@ -3,6 +3,7 @@ package com.OOCL.Todo.controller;
 import com.OOCL.Todo.exception.GlobalException;
 import com.OOCL.Todo.model.Todo;
 import com.OOCL.Todo.service.TodoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class TodoController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Todo addTodo(@RequestBody Todo todo) {
         return todoService.add(todo);
     }

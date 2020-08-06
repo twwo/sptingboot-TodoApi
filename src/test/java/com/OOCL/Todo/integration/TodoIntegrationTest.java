@@ -44,5 +44,19 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$[0].status").value(testTodo.getStatus()));
     }
 
+    @Test
+    void should_create_todo_when_hit_add_todo_given_todo_info() throws Exception {
+        //given
+        String addTodoInfo = "{\n" +
+                "    \"content\" : \"test3\",\n" +
+                "    \"status\" : false\n" +
+                "}";
 
+        //when
+        mockMvc.perform(post("/todos").contentType(MediaType.APPLICATION_JSON).content(addTodoInfo))
+                .andExpect(status().isCreated());
+        Todo addedTodo = todoRepository.findAll().get(0);
+        assertEquals("test3", addedTodo.getContent());
+        assertEquals(false, addedTodo.getStatus());
+    }
 }
