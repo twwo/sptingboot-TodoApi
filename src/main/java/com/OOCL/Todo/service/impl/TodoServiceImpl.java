@@ -1,5 +1,7 @@
 package com.OOCL.Todo.service.impl;
 
+import com.OOCL.Todo.constant.ExceptionConstant;
+import com.OOCL.Todo.exception.GlobalException;
 import com.OOCL.Todo.model.Todo;
 import com.OOCL.Todo.repository.TodoRepository;
 import com.OOCL.Todo.service.TodoService;
@@ -23,8 +25,12 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Todo findById(Integer id) {
-        return todoRepository.findById(id).orElse(null);
+    public Todo findById(Integer id) throws GlobalException {
+        Todo todo = todoRepository.findById(id).orElse(null);
+        if (todo == null) {
+            throw new GlobalException(ExceptionConstant.NOT_SUCH_DATA.getMessage());
+        }
+        return todo;
     }
 
     @Override
@@ -33,7 +39,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Todo update(Integer id, Todo updatedTodo) {
+    public Todo update(Integer id, Todo updatedTodo) throws GlobalException {
         Todo todo = findById(id);
         if (todo != null) {
             BeanUtils.copyProperties(updatedTodo, todo);
@@ -43,7 +49,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Todo delete(Integer id) {
+    public Todo delete(Integer id) throws GlobalException {
         Todo todo = findById(id);
         if (todo != null) {
             todoRepository.deleteById(id);

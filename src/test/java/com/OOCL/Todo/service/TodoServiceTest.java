@@ -46,7 +46,7 @@ public class TodoServiceTest {
     }
 
     @Test
-    void should_return_todo_when_findById_given_id() {
+    void should_return_todo_when_findById_given_id() throws GlobalException {
         //given
         Todo addedTodo = testTodoList.get(0);
         given(todoRepository.findById(addedTodo.getId())).willReturn(Optional.of(addedTodo));
@@ -75,7 +75,7 @@ public class TodoServiceTest {
     }
 
     @Test
-    void should_update_todo_when_update_given_todo() {
+    void should_update_todo_when_update_given_todo() throws GlobalException {
         //given
         Todo updatedTodo = testTodoList.get(0);
         given(todoRepository.save(updatedTodo)).willReturn(updatedTodo);
@@ -90,7 +90,7 @@ public class TodoServiceTest {
     }
 
     @Test
-    void should_delete_when_delete_given_id() {
+    void should_delete_when_delete_given_id() throws GlobalException {
         //given
         Todo deletedTodo = testTodoList.get(0);
         given(todoRepository.findById(deletedTodo.getId())).willReturn(Optional.of(deletedTodo));
@@ -105,12 +105,12 @@ public class TodoServiceTest {
     }
 
     @Test
-    void should_throw_global_exception_name_not_such_data_when_update_given_not_exist_id() {
+    void should_throw_global_exception_name_not_such_data_when_findById_given_not_exist_id() {
         //given
-        given(todoRepository.findById(anyInt())).willReturn(null);
+        given(todoRepository.findById(1)).willReturn(Optional.empty());
 
         //when, then
-        GlobalException globalException = assertThrows(GlobalException.class, () -> todoService.update(1, testTodoList.get(0)));
-        assertEquals(ExceptionConstant.NOT_SUCH_DATA, globalException.getMessage());
+        GlobalException globalException = assertThrows(GlobalException.class, () -> todoService.findById(1));
+        assertEquals(ExceptionConstant.NOT_SUCH_DATA.getMessage(), globalException.getMessage());
     }
 }
