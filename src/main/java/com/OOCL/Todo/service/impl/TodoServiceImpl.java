@@ -37,12 +37,17 @@ public class TodoServiceImpl implements TodoService {
         Todo todo = findById(id);
         if (todo != null) {
             BeanUtils.copyProperties(updatedTodo, todo);
+            todoRepository.save(todo);
         }
         return todo;
     }
 
     @Override
     public Todo delete(Integer id) {
-        return null;
+        Todo todo = findById(id);
+        if (todo != null) {
+            todoRepository.deleteById(id);
+        }
+        return todo;
     }
 }
