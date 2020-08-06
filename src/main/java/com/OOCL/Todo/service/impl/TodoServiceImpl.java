@@ -40,4 +40,9 @@ public class TodoServiceImpl implements TodoService {
         }
         return todo;
     }
+
+    @Override
+    public Todo delete(Integer id) {
+        return null;
+    }
 }

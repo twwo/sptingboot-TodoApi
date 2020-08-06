@@ -87,5 +87,18 @@ public class TodoServiceTest {
         assertEquals(updatedTodo, todo);
     }
 
+    @Test
+    void should_delete_when_delete_given_id() {
+        //given
+        Todo deletedTodo = testTodoList.get(0);
+        given(todoRepository.findById(deletedTodo.getId())).willReturn(Optional.of(deletedTodo));
 
+        //when
+        Todo todo = todoService.delete(deletedTodo.getId());
+
+        //then
+        assertNotNull(todo);
+        assertEquals(deletedTodo, todo);
+
+    }
 }
