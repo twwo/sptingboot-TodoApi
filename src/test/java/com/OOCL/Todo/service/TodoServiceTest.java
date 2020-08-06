@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -52,6 +53,7 @@ public class TodoServiceTest {
         Todo todo = todoService.findById(addedTodo.getId());
 
         //then
+        assertNotNull(todo);
         assertEquals(addedTodo.getId(), todo.getId());
         assertEquals(addedTodo.getContent(), todo.getContent());
         assertEquals(addedTodo.getStatus(), todo.getStatus());
