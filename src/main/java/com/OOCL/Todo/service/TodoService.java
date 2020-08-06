@@ -8,7 +8,6 @@ import java.util.List;
 public interface TodoService {
     List<Todo> findAll();
 
-
     Todo findById(Integer id) throws GlobalException;
 
     Todo add(Todo addedTodo);
