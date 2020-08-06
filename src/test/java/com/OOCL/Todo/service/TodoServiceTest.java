@@ -77,6 +77,7 @@ public class TodoServiceTest {
         //given
         Todo updatedTodo = testTodoList.get(0);
         given(todoRepository.save(updatedTodo)).willReturn(updatedTodo);
+        given(todoRepository.findById(updatedTodo.getId())).willReturn(Optional.of(updatedTodo));
 
         //when
         Todo todo = todoService.update(updatedTodo.getId(), updatedTodo);
@@ -85,4 +86,6 @@ public class TodoServiceTest {
         assertNotNull(todo);
         assertEquals(updatedTodo, todo);
     }
+
+
 }

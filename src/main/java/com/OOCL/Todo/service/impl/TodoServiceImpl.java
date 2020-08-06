@@ -3,6 +3,7 @@ package com.OOCL.Todo.service.impl;
 import com.OOCL.Todo.model.Todo;
 import com.OOCL.Todo.repository.TodoRepository;
 import com.OOCL.Todo.service.TodoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,10 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Todo update(Integer id, Todo updatedTodo) {
-        return null;
+        Todo todo = findById(id);
+        if (todo != null) {
+            BeanUtils.copyProperties(updatedTodo, todo);
+        }
+        return todo;
     }
 }
