@@ -30,4 +30,9 @@ public class TodoServiceImpl implements TodoService {
     public Todo add(Todo addedTodo) {
         return todoRepository.save(addedTodo);
     }
+
+    @Override
+    public Todo update(Integer id, Todo updatedTodo) {
+        return null;
+    }
 }

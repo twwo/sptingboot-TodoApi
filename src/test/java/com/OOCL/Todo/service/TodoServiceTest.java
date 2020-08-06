@@ -71,4 +71,18 @@ public class TodoServiceTest {
         //then
         assertEquals(addedTodo, todo);
     }
+
+    @Test
+    void should_update_todo_when_update_given_todo() {
+        //given
+        Todo updatedTodo = testTodoList.get(0);
+        given(todoRepository.save(updatedTodo)).willReturn(updatedTodo);
+
+        //when
+        Todo todo = todoService.update(updatedTodo.getId(), updatedTodo);
+
+        //then
+        assertNotNull(todo);
+        assertEquals(updatedTodo, todo);
+    }
 }

@@ -11,4 +11,6 @@ public interface TodoService {
     Todo findById(Integer id);
 
     Todo add(Todo addedTodo);
+
+    Todo update(Integer id, Todo updatedTodo);
 }
