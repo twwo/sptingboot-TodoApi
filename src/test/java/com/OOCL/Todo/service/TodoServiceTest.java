@@ -24,7 +24,7 @@ public class TodoServiceTest {
         //given
         TodoRepository todoRepository = mock(TodoRepository.class);
         given(todoRepository.findAll()).willReturn(testTodoList);
-        TodoService todoService = new TodoServiceImpl();
+        TodoService todoService = new TodoServiceImpl(todoRepository);
 
         //when
         List<Todo> todoList = todoService.findAll();
