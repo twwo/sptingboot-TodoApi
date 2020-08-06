@@ -1,5 +1,7 @@
 package com.OOCL.Todo.service;
 
+import com.OOCL.Todo.constant.ExceptionConstant;
+import com.OOCL.Todo.exception.GlobalException;
 import com.OOCL.Todo.model.Todo;
 import com.OOCL.Todo.repository.TodoRepository;
 import com.OOCL.Todo.service.impl.TodoServiceImpl;
@@ -10,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -100,5 +102,15 @@ public class TodoServiceTest {
         assertNotNull(todo);
         assertEquals(deletedTodo, todo);
 
+    }
+
+    @Test
+    void should_throw_global_exception_name_not_such_data_when_update_given_not_exist_id() {
+        //given
+        given(todoRepository.findById(anyInt())).willReturn(null);
+
+        //when, then
+        GlobalException globalException = assertThrows(GlobalException.class, () -> todoService.update(1, testTodoList.get(0)));
+        assertEquals(ExceptionConstant.NOT_SUCH_DATA, globalException.getMessage());
     }
 }
