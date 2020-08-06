@@ -9,4 +9,6 @@ public interface TodoService {
 
 
     Todo findById(Integer id);
+
+    Todo add(Todo addedTodo);
 }

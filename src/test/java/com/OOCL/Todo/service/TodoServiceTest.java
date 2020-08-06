@@ -58,4 +58,17 @@ public class TodoServiceTest {
         assertEquals(addedTodo.getContent(), todo.getContent());
         assertEquals(addedTodo.getStatus(), todo.getStatus());
     }
+
+    @Test
+    void should_add_todo_when_save_given_todo() {
+        //given
+        Todo addedTodo = testTodoList.get(0);
+        given(todoRepository.save(addedTodo)).willReturn(addedTodo);
+
+        //when
+        Todo todo = todoService.add(addedTodo);
+
+        //then
+        assertEquals(addedTodo, todo);
+    }
 }
